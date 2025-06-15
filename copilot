@@ -1,0 +1,126 @@
+2. Criar o Tópico Verificar Status do Pedido
+Este será o tópico principal.
+
+No menu lateral, clique em "Tópicos".
+
+Clique em "+ Novo Tópico" e selecione "Em branco".
+
+Nome do Tópico: Verificar Status do Pedido
+
+Frases de Gatilho:
+qual o status do meu pedido?
+verificar pedido
+acompanhar entrega
+meu pedido
+onde está meu pedido?
+Fluxo de Conversa:
+
+Mensagem de Boas-Vindas:
+
+Abaixo das frases de gatilho, clique no "+" e selecione "Mostrar uma mensagem".
+Mensagem: Olá! Posso ajudar a verificar o status do seu pedido. 😊
+Perguntar o Número do Pedido:
+
+Abaixo da mensagem, clique no "+" e selecione "Fazer uma pergunta".
+Pergunta: Por favor, digite o número do seu pedido.
+Identificar: Escolha "Número". (O Copilot Studio tentará reconhecer um número na resposta do usuário.)
+Salvar resposta como: Nomeie a variável como varNumeroPedido.
+Simular a Consulta do Status (Mensagem de Resposta):
+
+Abaixo da pergunta, clique no "+" e selecione "Mostrar uma mensagem".
+Mensagem: Obrigado! Verificando o status para o pedido **{varNumeroPedido}**...
+Para este exemplo, vamos simular o status. Em um cenário real, você chamaria um Power Automate Flow aqui para consultar seu sistema de pedidos.
+Abaixo da mensagem anterior, adicione outra "Mostrar uma mensagem".
+Mensagem: O status atual do pedido **{varNumeroPedido}** é: **Em Rota de Entrega (Previsão: 17/06/2025)**.
+Você pode adicionar mais mensagens ou condições aqui se o status do pedido determinar ações diferentes.
+Oferecer Opção de Cancelar ou Ajuda:
+
+Abaixo da mensagem de status, clique no "+" e selecione "Fazer uma pergunta".
+Pergunta: Há mais alguma coisa em que posso ajudar com este pedido?
+Opções para o usuário (multichoice):
+Quero cancelar o pedido
+Preciso de mais ajuda
+Não, obrigado
+Salvar resposta como: Nomeie a variável como varOpcaoPedido.
+Adicionar Condição com Base na Opção Escolhida:
+
+Abaixo da pergunta com opções, clique no "+" e selecione "Adicionar uma condição".
+
+Condição 1: varOpcaoPedido "é igual a" "Quero cancelar o pedido".
+
+Ação para "Quero cancelar o pedido":
+Clique no "+" dentro deste ramo e selecione "Redirecionar para outro tópico".
+Selecione o tópico que vamos criar em seguida: Cancelar Pedido.
+Condição 2: varOpcaoPedido "é igual a" "Preciso de mais ajuda".
+
+Ação para "Preciso de mais ajuda":
+Clique no "+" dentro deste ramo e selecione "Redirecionar para outro tópico".
+Selecione o tópico de sistema "Tópico de Ajuda Geral" (ou crie um se preferir um personalizado).
+Ramo "Todas as outras condições" (para "Não, obrigado"):
+
+Clique no "+" dentro deste ramo e selecione "Mostrar uma mensagem".
+Mensagem: Certo! Fico feliz em ter ajudado. Tenha um ótimo dia!
+Abaixo da mensagem, clique no "+" e selecione "Encerrar a conversa" e depois "Encerrar com pesquisa".
+3. Criar o Tópico Cancelar Pedido
+Este tópico será chamado do tópico Verificar Status do Pedido.
+
+No menu lateral, clique em "Tópicos".
+
+Clique em "+ Novo Tópico" e selecione "Em branco".
+
+Nome do Tópico: Cancelar Pedido
+
+Frases de Gatilho: (Não adicione gatilhos aqui, pois este tópico será chamado de outro.)
+Fluxo de Conversa:
+
+Mensagem Inicial:
+
+Abaixo das frases de gatilho, clique no "+" e selecione "Mostrar uma mensagem".
+Mensagem: Você solicitou o cancelamento de um pedido.
+Perguntar Confirmação do Cancelamento:
+
+Abaixo da mensagem, clique no "+" e selecione "Fazer uma pergunta".
+Pergunta: Tem certeza que deseja cancelar o pedido? Esta ação não pode ser desfeita.
+Identificar: Escolha "Booleano (Verdadeiro/Falso)".
+Salvar resposta como: Nomeie a variável como varConfirmarCancelamento.
+Adicionar Condição para Confirmação:
+
+Abaixo da pergunta, clique no "+" e selecione "Adicionar uma condição".
+
+Condição: varConfirmarCancelamento "é igual a" True.
+
+Ramo "Condição 1" (Usuário Confirmou o Cancelamento):
+
+Clique no "+" e selecione "Mostrar uma mensagem".
+Mensagem: Seu pedido foi marcado para cancelamento. Você receberá um e-mail de confirmação em breve.
+Aqui você integraria com um Power Automate Flow para realmente cancelar o pedido no seu sistema.
+Abaixo da mensagem, clique no "+" e selecione "Encerrar a conversa" e depois "Encerrar com pesquisa".
+Ramo "Todas as outras condições" (Usuário Não Confirmou):
+
+Clique no "+" e selecione "Mostrar uma mensagem".
+Mensagem: Entendido! Seu pedido não será cancelado.
+Abaixo da mensagem, clique no "+" e selecione "Encerrar a conversa" e depois "Encerrar com pesquisa".
+4. (Opcional) Ajustar o Tópico Ajuda Geral
+O Copilot Studio já vem com um tópico de sistema chamado "Tópico de Ajuda Geral". Você pode personalizá-lo:
+
+No menu "Tópicos", procure por "Tópicos do Sistema" e encontre "Tópico de Ajuda Geral".
+Você pode editar a mensagem para ser mais útil, por exemplo, Certo, você precisa de ajuda. Por favor, descreva brevemente sua dúvida ou digite "falar com atendente" se preferir..
+Adicione uma pergunta com opções, como "Falar com atendente", "Perguntas Frequentes", "Voltar ao menu principal".
+Testando o Copiloto
+No canto superior esquerdo, clique em "Testar seu copiloto".
+Teste o fluxo de status:
+Digite qual o status do meu pedido?
+Forneça um número de pedido (ex: 12345).
+Quando perguntar "Há mais alguma coisa...", escolha Quero cancelar o pedido.
+Teste o fluxo de cancelamento:
+O copiloto vai para o tópico de cancelamento.
+Responda sim ou não à confirmação do cancelamento.
+Teste o fluxo de ajuda:
+Comece novamente ou continue do ponto anterior.
+Quando perguntar "Há mais alguma coisa...", escolha Preciso de mais ajuda.
+Veja o copiloto te levar para o tópico de ajuda.
+Próximos Passos (Aprimoramentos)
+Integração Real com Power Automate: Em vez de apenas exibir mensagens simuladas, crie Power Automate Flows que se conectem ao seu sistema de pedidos real (via API, banco de dados, SharePoint, etc.) para buscar status e realizar cancelamentos.
+Tratamento de Erros: O que acontece se o número do pedido não for encontrado? O copiloto deve ter um caminho para informar o usuário e oferecer alternativas.
+Transferência para Agente Humano: Adicione a funcionalidade de "Transferir para agente humano" para casos complexos que o copiloto não pode resolver.
+Reconhecimento de Entidades Aprimorado: Se os números de pedidos tiverem um formato específico (ex: "ABC-12345"), crie uma entidade personalizada de Expressão Regular para reconhecê-los com mais precisão.
